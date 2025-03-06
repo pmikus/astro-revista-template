@@ -66,13 +66,6 @@ jobs:
             exit 1
           fi
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
-          retention-days: 7
-
   # Deployment job
   deploy:
     environment:
