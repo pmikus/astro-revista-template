@@ -1,0 +1,79 @@
+---
+
+---
+
+<div
+  class="prose prose-slate m-0
+    w-full mx-auto bg-white px-8 py-12
+    dark:bg-slate-800 dark:prose-invert
+    prose-headings:font-inconsolata
+    prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-6
+    prose-h2:text-2xl prose-h2:font-semibold prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-blue-800 dark:prose-h2:text-blue-400
+    prose-h3:text-xl prose-h3:font-medium prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-blue-700 dark:prose-h3:text-blue-300
+    prose-h4:text-lg prose-h4:font-medium prose-h4:mt-4 prose-h4:mb-2 prose-h4:text-blue-600 dark:prose-h4:text-slate-400
+    prose-p:my-2 prose-p:leading-relaxed
+    prose-ul:my-2 prose-ul:list-disc prose-ul:pl-6
+    prose-li:my-1
+    prose-a:text-blue-600 prose-a:no-underline prose-a:hover:underline
+    prose-table:my-4 prose-table:w-full prose-table:border-collapse
+    prose-th:border prose-th:border-slate-300 dark:prose-th:border-slate-600 prose-th:px-4 prose-th:py-2 prose-th:bg-slate-100 dark:prose-th:bg-slate-700 prose-th:font-semibold
+    prose-td:border prose-td:border-slate-300 dark:prose-td:border-slate-600 prose-td:px-4 prose-td:py-2
+    sm:px-12 sm:py-16
+    lg:max-w-4xl font-inconsolata"
+>
+  <slot />
+</div>
+
+<style>
+  /* Custom styles for resume elements - updated for Tailwind v4 */
+  :global(.prose .company-name) {
+    font-size: var(--text-6); /* text-2xl in v4 */
+    font-weight: 700; /* font-bold */
+    color: var(--color-blue-900);
+  }
+
+  :global(.dark .prose .company-name) {
+    color: var(--color-blue-300);
+  }
+
+  :global(.prose .job-title) {
+    font-size: var(--text-5); /* text-xl in v4 */
+    font-weight: 600; /* font-semibold */
+    color: var(--color-blue-700);
+  }
+
+  :global(.dark .prose .job-title) {
+    color: var(--color-blue-400);
+  }
+
+  :global(.prose .date-range) {
+    font-size: var(--text-4); /* text-base in v4 */
+    font-weight: 500; /* font-medium */
+    color: var(--color-slate-600);
+    font-style: italic;
+  }
+
+  :global(.dark .prose .date-range) {
+    color: var(--color-slate-400);
+  }
+
+  :global(.prose .school-name) {
+    font-size: var(--text-5); /* text-xl in v4 */
+    font-weight: 700; /* font-bold */
+    color: var(--color-blue-800);
+  }
+
+  :global(.dark .prose .school-name) {
+    color: var(--color-blue-400);
+  }
+
+  :global(.prose .degree) {
+    font-size: var(--text-4-5); /* text-lg in v4 */
+    font-weight: 600; /* font-semibold */
+    color: var(--color-blue-700);
+  }
+
+  :global(.dark .prose .degree) {
+    color: var(--color-blue-300);
+  }
+</style>
