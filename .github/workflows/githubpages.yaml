@@ -4,7 +4,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches:
-      - main
+      - master
 
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
@@ -26,18 +26,52 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup Bun environment
+        uses: oven-sh/setup-bun@v1
+
+      - name: Cache dependencies and build artifacts
+        uses: actions/cache@v4
         with:
-          submodules: recursive
-          fetch-depth: 0
+          path: |
+            ~/.bun/install/cache
+            node_modules
+            .astro
+            dist
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('**/package.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('**/package.json') }}-
+            ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}-
+            ${{ runner.os }}-bun-
 
-      - name: "Setup Pages"
-        id: pages
-        uses: actions/configure-pages@v5
+      - name: Install project dependencies
+        run: bun install
 
-      - name: "Install, build site with Astro"
-        uses: withastro/action@v3
+      - name: Build project with retry
+        env:
+          MAX_ATTEMPTS: 3
+          RETRY_INTERVAL: 30
+        run: |
+          attempt=1
+          until bun run build || [ $attempt -eq $MAX_ATTEMPTS ]; do
+            echo "Build attempt $attempt failed. Retrying in $RETRY_INTERVAL seconds..."
+            sleep $RETRY_INTERVAL
+            attempt=$((attempt + 1))
+          done
+
+          if [ $attempt -eq $MAX_ATTEMPTS ] && ! bun run build; then
+            echo "Build failed after $MAX_ATTEMPTS attempts."
+            exit 1
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
 
   # Deployment job
   deploy:
