@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:gh-page": "astro build --base=/astro-revista-template/",
     "preview": "astro preview",
     "astro": "astro",
     "postbuild": "pagefind --site dist"
