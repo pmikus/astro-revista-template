@@ -11,7 +11,7 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
-  site: "https://pmikus.github.io/astro-revista-template",
+  site: "https://pmikus.github.io",
   base: "/astro-revista-template",
 
   integrations: [
