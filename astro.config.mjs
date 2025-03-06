@@ -12,7 +12,6 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://pmikus.github.io/astro-revista-template",
-  base: "/astro-revista-template",
 
   integrations: [
     icon(),
